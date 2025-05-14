@@ -99,8 +99,17 @@ while game:
         ball.rect.y += y_speed
         if ball.rect.y < 0 or ball.rect.y > win_height-50:
             y_speed *= -1
-        if sprite.collide_rect(player_red, ball) or sprite.collide_rect(player_blue, ball):
+            
+ # столкновение с ракеткой blue
+        if sprite.collide_rect(player_blue, ball):
+            ball.rect.left = player_blue.rect.right  # предотвращаем залипание
+            x_speed *= -1  # отражение по X
+ # столкновение с ракеткой red
+        if sprite.collide_rect(player_red, ball):
+            ball.rect.right = player_red.rect.left  # предотвращаем залипание
             x_speed *= -1
+
+        
         if ball.rect.x < 0:
             finish = True
             lose_sound.play()
